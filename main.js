@@ -1,32 +1,38 @@
-//Simulação de adicção de itens de pedido
-// Seleciona todos os botões que possuem a classe "Adicionar"
+// Simulação de adição de itens ao pedido
 
-const botoesAdicionar = document.querySelectorAll ('.adicionar');
+// Seleciona todos os botões "Adicionar"
+const botoesAdicionar = document.querySelectorAll('.adicionar');
 
-//Selecionar a lista onde os itens do pedido serão exbidos
-
-const listaPeido = document.getElementById ('lista_pedido');
+// Seleciona a lista onde os itens do pedido serão exibidos
+const listaPedido = document.getElementById('lista_pedido');
 
 // Seleciona o elemento que exibirá o valor total
+const totalElemento = document.getElementById('total');
 
-const totalElemento = document.getElementById ('total');
+// Criação de variável que armazena o total do pedido
+let total = 0;
 
-//Criação devariavel que armazena total do pedido
+// Percorre todos os botões "Adicionar" e adiciona um evento de clique
+botoesAdicionar.forEach((botao) => {
+    botao.addEventListener('click', () => {
+        // Obtém o elemento pai do botão (o produto)
+        const produto = botao.parentElement;
 
-let total=0;
+        // Obtém o nome do produto a partir do texto da tag <h3>
+        const nome = produto.querySelector('h3').textContent;
 
-//Percorre todos os botões "Adicionar" e adiciona um evento de click em cada um 
+        // Obtém o preço do produto, removendo o "R$" e convertendo para número decimal
+        const preco = parseFloat(produto.querySelector('.preco').textContent.replace("R$", "").replace(",", "."));
 
-botoesAdicionar.forEach((botao)=>{
-
-    botao.addEventListener('click', () =>{
-        //Obtem o elemento pai do botão
-        cont = botao.parentElement;
-
-        //Obtem o nome do produto a patir do texto da tag <h3>
+        // Cria um novo item <li> para adicionar o produto ao pedido
+        const itemPedido = document.createElement('li');
         
 
-    });
-    
+        // Adiciona o item criado à lista de pedidos
+        listaPedido.appendChild(itemPedido);
 
-})
+        // Atualiza o total da compra
+        total += preco;
+        totalElemento.textContent = `Total: R$ ${total.toFixed(2)}`;
+    });
+});
